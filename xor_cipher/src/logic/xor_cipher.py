@@ -18,7 +18,7 @@ def generate_random_key(length: int) -> str:
 
     indexes_for_choice = indexes_1 if len(indexes_1) > len(indexes_0) else indexes_0
     for _ in range(abs(len(indexes_1) - len(indexes_0)) // 2):
-        current_index = random.sample(indexes_for_choice, 1)[0]
+        current_index = random.choice(list(indexes_for_choice))
         indexes_for_choice.remove(current_index)
         random_digits[current_index] = int(not random_digits[current_index])
 

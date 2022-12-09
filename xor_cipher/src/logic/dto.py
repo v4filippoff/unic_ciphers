@@ -3,5 +3,5 @@ from dataclasses import dataclass
 
 @dataclass
 class BreakCipherResult:
-    key: int
+    key: str
     decrypted_text: str

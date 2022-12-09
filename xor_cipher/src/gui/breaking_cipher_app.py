@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox, filedialog
 
-# from src.logic.breaking_vigenere_cipher import break_cipher
+from src.logic.breaking_vigenere_cipher import break_vigenere_cipher as break_cipher
+from src.logic.exceptions import KeyLengthNotFound, NotOnlyAlphabetCharactersError
 
 
 def build_window():
@@ -11,6 +12,12 @@ def build_window():
 
     def showerror_two_alphabet_characters():
         messagebox.showerror(title='Ошибка', message='Символы текста должны быть из одного алфавита!')
+
+    def showerror_key_length_not_found():
+        messagebox.showerror(title='Ошибка', message='Не удалось найти длину ключа!')
+
+    def showerror_not_only_alphabet_characters_error():
+        messagebox.showerror(title='Ошибка', message='Допустимы только символы из алфавита!')
 
     def break_button_handler():
         source_text = source_text_input.get(1.0, tk.END)
@@ -23,6 +30,12 @@ def build_window():
         except ValueError:
             showerror_two_alphabet_characters()
             return
+        except KeyLengthNotFound:
+            showerror_key_length_not_found()
+            return
+        except NotOnlyAlphabetCharactersError:
+            showerror_not_only_alphabet_characters_error()
+            return
 
         break_result_widget.delete(1.0, tk.END)
         break_result_widget.insert(tk.END, break_cipher_result.decrypted_text)
@@ -34,7 +47,7 @@ def build_window():
 
         filename = filedialog.askopenfilename(
             title='Открыть файл',
-            initialdir='/home/woody/PycharmProjects/unic/vigenere_cipher/src',
+            initialdir='../',
             filetypes=filetypes
         )
         if not filename:
