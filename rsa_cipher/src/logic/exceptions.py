@@ -1,0 +1,2 @@
+class TooBigMessage(Exception):
+    pass

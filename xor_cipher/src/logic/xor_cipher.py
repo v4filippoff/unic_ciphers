@@ -1,7 +1,6 @@
 from bitarray import bitarray
 import random
 
-
 ENCODING = 'cp1251'
 BITS_IN_BYTE = 8
 
