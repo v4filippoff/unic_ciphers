@@ -28,13 +28,8 @@ def extended_gcd(a: int, b: int) -> tuple[int, int, int]:
 
 
 def is_number_prime(number: int) -> bool:
-    # Проверяем делимость на маленькие простые числа до определенного предела
-    small_prime_numbers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251]
-    if number in small_prime_numbers:
-        return True
-    for small_prime in small_prime_numbers:
-        if number % small_prime == 0:
-            return False
+    if number % 2 == 0:
+        return False
 
     # Тест Миллера-Рабина
     s, d = 1, (number - 1) // 2
@@ -57,17 +52,15 @@ def is_number_prime(number: int) -> bool:
     return True
 
 
-def generate_prime_number(nbits: int) -> int:
-    random_bits = '1' + ''.join(random.choice(['0', '1']) for _ in range(nbits - 1))
-    current_random_number = int(random_bits, 2)
-    current_random_number += not(current_random_number % 2)
-    while not is_number_prime(current_random_number):
-        current_random_number += 2
-    return current_random_number
+def get_prime(nbits: int) -> int:
+    while True:
+        a = random.randint(2 ** nbits, 2 ** (nbits + 1) - 1)
+        if is_number_prime(a):
+            return a
 
 
 def generate_keys(nbits: int) -> RSAKeyGeneration:
-    p, q = generate_prime_number(nbits), generate_prime_number(nbits)
+    p, q = get_prime(nbits), get_prime(nbits)
     n = p * q
     euler = (p - 1) * (q - 1)
     e = 65537
