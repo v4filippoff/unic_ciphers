@@ -3,7 +3,6 @@ from tkinter import messagebox
 
 from src.logic import rsa_cipher
 from src.logic.dto import RSAPublicKey, RSAPrivateKey
-from src.logic.exceptions import TooBigMessage
 
 
 def build_window():
@@ -56,7 +55,7 @@ def build_window():
             return
         try:
             encrypted_text = rsa_cipher.encrypt(source_text, public_key)
-        except TooBigMessage as exc:
+        except Exception as exc:
             showerror_custom(str(exc))
             return
         encrypt_result_input.delete(1.0, tk.END)
@@ -65,12 +64,12 @@ def build_window():
     def decrypt_command():
         private_key = RSAPrivateKey(d=int(d_input.get()), n=int(n_input.get()))
         encrypted_text = encrypt_result_input.get(1.0, tk.END).strip()
-        if not encrypted_text:
+        if not encrypted_text or not encrypted_text.isdigit():
             showerror_encrypted_text()
             return
         try:
             decrypted_text = rsa_cipher.decrypt(int(encrypted_text), private_key)
-        except TooBigMessage as exc:
+        except Exception as exc:
             showerror_custom(str(exc))
             return
         decrypt_result_input.delete(1.0, tk.END)

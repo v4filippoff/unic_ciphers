@@ -1,2 +1,0 @@
-class TooBigMessage(Exception):
-    pass

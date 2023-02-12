@@ -1,4 +1,4 @@
-ENCODING = 'CP1251'
+ENCODING = 'cp1251'
 
 
 def convert_str_to_int(text: str) -> int:

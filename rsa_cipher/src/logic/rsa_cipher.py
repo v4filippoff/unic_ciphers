@@ -2,7 +2,6 @@ import math
 import random
 
 from src.logic.dto import RSAKeyGeneration, RSAPublicKey, RSAPrivateKey
-from src.logic.exceptions import TooBigMessage
 from src.logic.utils import convert_str_to_int, convert_int_to_str
 
 
@@ -75,21 +74,13 @@ def generate_keys(nbits: int) -> RSAKeyGeneration:
 
 def encrypt(text: str, public_key: RSAPublicKey) -> int:
     text_int = convert_str_to_int(text)
-    if text_int >= public_key.n:
-        raise TooBigMessage('Слишком большое сообщение!')
     return fast_pow_mod(text_int, public_key.e, public_key.n)
 
 
 def decrypt(text_int: int, private_key: RSAPrivateKey) -> str:
-    if text_int >= private_key.n:
-        raise TooBigMessage('Слишком большое сообщение!')
     result_int = fast_pow_mod(text_int, private_key.d, private_key.n)
     return convert_int_to_str(result_int)
 
 
 if __name__ == '__main__':
-    key_generation = generate_keys(512)
-    encrypted = encrypt('Привет Как дела у543!', key_generation.public_key)
-    print(encrypted)
-    decrypted = decrypt(encrypted, key_generation.private_key)
-    print(decrypted)
+    print(fast_pow_mod(5, 10, 7))
