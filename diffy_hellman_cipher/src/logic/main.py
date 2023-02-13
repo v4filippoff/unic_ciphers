@@ -73,6 +73,8 @@ def get_sg(bit: int):
 def get_primitive_root(bit: int, p: int):
     while True:
         g = random.randint(2**bit, 2**(bit + 1) - 1)
+        if g >= p:
+            continue
         if math.gcd(g, p) == 1:
             if pow(g, (p - 1) // 2, p) != 1:
                 if pow(g, 2, p) != 1:
