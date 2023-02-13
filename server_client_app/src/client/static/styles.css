@@ -1,0 +1,11 @@
+#main {
+    max-width: 1080px;
+	margin: 0 auto !important;
+	float: none !important;
+}
+
+#errors {
+    margin-top: 50px;
+    height: 100px;
+    background: bisque;
+}

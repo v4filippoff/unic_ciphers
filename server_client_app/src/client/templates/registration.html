@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form id="registrationForm" method="post">
+        <div class="container">
+            <h1>Регистрация</h1>
+            <p>
+                <label for="login"><b>Логин</b></label>
+                <input type="text" name="login" id="login" required>
+            </p>
+            <p>
+                <label for="password"><b>Пароль</b></label>
+                <input type="password" name="password" id="password" required>
+            </p>
+            <button type="submit" class="registerbtn">Зарегистрироваться</button>
+        </div>
+    </form>
+{% endblock %}
